@@ -161,5 +161,34 @@ From the screenshot above, we see a blob object which corresponds to the `src/RE
 
 Hence, our expectation was correct !
 
-Let's now try to add a new file called 'New.md' inside the root directory and try to predict what the object structure should look like:
+Let's now try to add a new file called 'New.md' inside the root directory and try to predict what the object structure should look like. The understanding is that Git should create new objects only when required, (like a new blob object for new.md, a new object for commit, and a new object for tree (since the new commit won't be able to point to the old tree object) ). We will reuse the objects wherever possible.
 
+The expectation is something along:
+
+![Git-object-structure-after-second-commit](./Git-object-structure-after-second-commit.png)
+
+The new links are highlighted in red, and the old ones are highlighted in black. 
+
+Let's understand the reasoning behind the new links. As we know that in Git, every commit has a pointer to its previous commit, so we have a pointer from the second commit to the first commit. There has to be a second tree object, which supports the second commit object. This second tree object should track all the changes in the src folder, the README.md and new.md files, hence the required links have been created.
+
+Let's now validate whether our expectation is correct or not.
+
+![Git-actual-object-structure-after-second-commit](./Git-actual-object-structure-after-second-commit.png)
+
+From the screenshot above, we can find that there are 8 objects, similar to what we expected.
+
+Let's now explore some of the newly created objects (based upon their hash values):
+
+![Git-blob-after-second-commit](./Git-blob-after-second-commit.png)
+
+Fron the screenshot above, we can see that a new blob object has been created for new.md
+
+![Git-tree-object-after-second-commit](./Git-tree-object-after-second-commit.png)
+
+From the screenshot above, we can see that the tree object has pointers to the 'new.md' blob object, 'src' tree object and 'README.md' blob object.
+
+![Git-commit-object-after-second-commit](./Git-commit-object-after-second-commit.png)
+
+From the screenshot avove, we can see that the second commit object has a pointer to the second tree object. Also, it has a pointer to the previous commit object.
+
+Hence, our expectations were correct !
