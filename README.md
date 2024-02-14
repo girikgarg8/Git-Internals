@@ -192,3 +192,27 @@ From the screenshot above, we can see that the tree object has pointers to the '
 From the screenshot above, we can see that the second commit object has a pointer to the second tree object. Also, it has a pointer to the previous commit object.
 
 Hence, our expectations were correct !
+
+**Let's also look at some of Git optimizations**
+
+When we push the changes to Github, we can observe that Git does certain optimizations.
+
+![Git-optimizations-on-push](./Git-optimizations-on-push.png)
+
+1. Delta Compression: Git uses delta compression to reduce the amount of data that needs to be transferred during a push. Instead of sending entire files, Git sends only the differences (or "deltas") between the versions of files that have changed. This minimizes the amount of data transmitted over the network.
+
+2. Pack Files: Git uses a mechanism called "pack files" to store objects more efficiently. It groups similar Git objects together and stores them as compressed packs. This helps reduce the overall storage size of the repository and also makes transferring Git objects faster.
+
+Git also tries to reduce the number of objects it creates, as an example, if there are two different objects with the same content, it will only create one blob object for both of them.
+
+See the example below:
+
+![Git-same-object-for-same-content-different-files](./Git-same-object-for-same-content-different-files.png)
+
+We can mimic the `Git delta compression and generation of packfiles` by using `git gc` command. See below:
+
+![Git-gc](./Git-gc.png)
+
+Git might create packfiles in order to compress the objects. If we want to see the contents of packfile, we can use `git verify-pack -v <path to packfile>`. See example below:
+
+![Git-verify-pack](https://raw.githubusercontent.com/girikgarg8/Git_Internals_Tutorial/master/Git_verify_pack.png)
