@@ -189,6 +189,6 @@ From the screenshot above, we can see that the tree object has pointers to the '
 
 ![Git-commit-object-after-second-commit](./Git-commit-object-after-second-commit.png)
 
-From the screenshot avove, we can see that the second commit object has a pointer to the second tree object. Also, it has a pointer to the previous commit object.
+From the screenshot above, we can see that the second commit object has a pointer to the second tree object. Also, it has a pointer to the previous commit object.
 
 Hence, our expectations were correct !
